@@ -6,23 +6,18 @@ body {
 }
 
 * {
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .grid-item {
     font-size: 2rem;
 
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: .5rem;
 
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.note-container .grid-item,
-.medie-container .grid-item {
-    border: 1px solid black;
 }
 
 .grid-container {
@@ -68,7 +63,8 @@ body {
 }
 
 .medie-container-text {
-    grid-area: 2 / 1 / span 1 / span 1;    
+    grid-area: 2 / 1 / span 1 / span 1;   
+    font-size: 5rem; 
 }
 
 [class$="header"] {
@@ -134,6 +130,7 @@ button:active {
 
 button {
     background-color: #B9A1CF;
+    color: #3A145C;
 }
 
 * {  
@@ -141,14 +138,22 @@ button {
     color: #3A145C;
 }
 
-/* .note-container .grid-item,
+.note-container .grid-item,
 .medie-container .grid-item {
     border-color: #3A145C;
-    border-top: none;
-    border-left: none;
-    border-bottom: 2px solid;
+    border-top: 1px solid;
+    border-left: 1px solid;
+    border-bottom: none;
 }
 
 .medie-container .grid-item {
-    border-right: none;
-} */
+    border-right: 1px solid;
+}
+
+.buttons-container {
+    border: 1px solid #3A145C;
+}
+
+.edit-note-layout {
+    border: 1px solid #3A145C;
+}
