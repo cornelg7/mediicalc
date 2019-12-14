@@ -6,8 +6,47 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MediiCalc</title>
     <link rel="stylesheet" href="style/main.css">
+    <script src="js/main.js"></script>
 </head>
 <body>
-    
+    <div class="grid-container">
+        <div class="note-container" onclick="swapEditNoteLayout(this)">
+            <header class="grid-item note-container-header">
+                Note
+            </header>
+            <div class="grid-item note-container-teza-header">
+                <span class="teza-text">Teza:</span>
+                <span class="teza-span">-</span>
+            </div>
+            <div class="note-container-text grid-item">
+                
+            </div>
+        </div>
+        <div class="medie-container" onclick="swapEditNoteLayout(this)">
+            <header class="grid-item medie-container-header">
+                Media
+            </header>
+            <div class="medie-container-text grid-item">
+                22183
+            </div>
+        </div>
+        <div class="buttons-container">
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="1">1</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="2">2</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="3">3</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="4">4</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="5">5</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="6">6</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="7">7</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="8">8</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="9">9</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="10">10</button></div>
+            <div class="grid-item"><button class="number-button" onclick="tezaButtonClick(this)">T</button></div>
+            <div class="grid-item"><button class="number-button" onclick="resetButtonClick(this)">R</button></div>
+        </div>
+        <div class="edit-note-layout">
+            
+        </div>
+    </div>
 </body>
 </html>
