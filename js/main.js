@@ -23,6 +23,7 @@ function numberButtonClick(b) {
         else {
             addNewNota(value);
         }
+        updateMedie();
     }
     else {
         console.error("invalid value by clicking " + b + " value is not in 1-10: " + value);
@@ -72,6 +73,7 @@ function addNewNotaToHtml(n) {
     bigContainerChild.onclick = function() {
         deleteNode(bigContainerChild);
         deleteNode(smallContainerChild);
+        updateMedie();
     }
 }
 
@@ -79,6 +81,7 @@ function tezaButtonClick(b) {
     tezaButtonPressed = !tezaButtonPressed;
     if (resetButtonPressed) {
         addNewTeza("-");
+        updateMedie();
         // set button to un-active
         tezaButtonPressed = false;
         b.style.backgroundColor = "#B9A1CF";
@@ -101,6 +104,7 @@ function resetButtonClick(b) {
     resetButtonPressed = !resetButtonPressed;
     if (tezaButtonPressed) {
         addNewTeza("-");
+        updateMedie();
         // set button to un-active
         tezaButtonPressed = false;
         document.getElementsByClassName("teza-button")[0].style.backgroundColor = "#B9A1CF";
@@ -130,4 +134,46 @@ function resetAll() {
         function (e) { toClick.push(e); }
     );
     toClick.forEach(e => e.click());
+    updateMedie();
+}
+
+function checkIfTeza() {
+    return document.getElementsByClassName("teza-span")[0].textContent != "-";
+}
+
+function writeToMedieContainer(value) {
+    document.getElementsByClassName("medie-container-text")[0].textContent = value;
+}
+
+function updateMedie() {
+    var t;
+    var m;
+    var n = 0;
+    var s = 0;
+    
+    var toSum = [];
+    Array.prototype.forEach.call(
+        document.getElementsByClassName("edit-note-layout")[0].children,
+        function (e) { 
+            s = s + parseInt(e.textContent);
+            n = n + 1;
+        }
+    );
+
+    if (n > 0) {
+        m = Math.trunc((s / n) * 100) / 100;
+        
+        if (checkIfTeza()) {
+            var valTeza = parseInt(document.getElementsByClassName("teza-span")[0].textContent);
+            t = Math.trunc(((3 * m + valTeza) / 4) * 1000) / 1000;
+        }
+        else {
+            t = Math.trunc((m * 1000)) / 1000;
+        }
+        
+        writeToMedieContainer(t);
+    }
+    else {
+        writeToMedieContainer("");
+    }
 }
