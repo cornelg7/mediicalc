@@ -1,12 +1,15 @@
 var tezaButtonPressed = false;
 var resetButtonPressed = false;
+var point5ButtonsView = true;
+var swapButtonsButtonPressed = false;
 
 
 function numberButtonClick(b) {
+    resetSwapButton();
     var value = b.getAttribute("data-value");
 
     // if 1 <= value <= 10 
-    if (Array.from(Array(10), (e, i) => i+1).some(e => e == value)) {
+    if (Array.from(Array(10), (e, i) => i+1).some(e => e == value || e - 0.5 == value)) {
         if (resetButtonPressed) {
             // un-active
             resetButtonPressed = false;
@@ -38,16 +41,85 @@ function addNewNota(n) {
     addNewNotaToHtml(n);
 }
 
+// called when changing button values
+function deactivateResetAndTezaButtons() {
+    tezaButtonPressed = false;
+    document.getElementsByClassName("teza-button")[0].style.backgroundColor = "#B9A1CF";
+    document.getElementsByClassName("teza-button")[0].style.color = "#3A145C";
+    resetButtonPressed = false;
+    document.getElementsByClassName("reset-button")[0].style.backgroundColor = "#B9A1CF";
+    document.getElementsByClassName("reset-button")[0].style.color = "#3A145C";
+    document.getElementsByClassName("reset-button")[1].style.backgroundColor = "#B9A1CF";
+    document.getElementsByClassName("reset-button")[1].style.color = "#3A145C";
+}
+
+function resetSwapButton() {
+    var b = document.getElementsByClassName("change-button-values")[0];
+    var fas = document.getElementsByClassName("fa-exchange-alt")[0];
+    b.style.backgroundColor = "#D7C8E5";
+    b.style.color = "#3A145C";
+    fas.style.backgroundColor = "#D7C8E5";
+    fas.style.color = "#3A145C";
+    swapButtonsButtonPressed = false;
+}
+
+function swapButtonLayout(b) {
+    // un-activate all other buttons
+    deactivateResetAndTezaButtons();
+    var fas = document.getElementsByClassName("fa-exchange-alt")[0];
+    if (swapButtonsButtonPressed) {
+        // un-activate button
+        resetSwapButton();
+
+        // and change layout
+        var e = document.getElementsByClassName("buttons-container")[0];
+        var f = document.getElementsByClassName("buttons-container-with-decimals")[0];
+        var l = document.getElementsByClassName("edit-note-layout")[0];
+        // clicked on button to swap when we had .5 layout active, so we 'activate' the other one
+        if (point5ButtonsView) {
+            e.style.display = "grid";
+            f.style.display = "none";
+            l.style.display = "none";
+        }
+        else {
+            e.style.display = "none";
+            f.style.display = "grid";
+            l.style.display = "none";
+        }
+        resetAll();
+        point5ButtonsView = !point5ButtonsView;
+    }
+    else {
+        // activate button
+        b.style.backgroundColor = "#7B579D"
+        b.style.color = "#D7C8E5";
+        fas.style.backgroundColor = "#7B579D";
+        fas.style.color = "#D7C8E5";
+        swapButtonsButtonPressed = true;
+    }
+
+}
+
 function swapEditNoteLayout() {
     var e = document.getElementsByClassName("buttons-container")[0];
+    var f = document.getElementsByClassName("buttons-container-with-decimals")[0];
     var l = document.getElementsByClassName("edit-note-layout")[0];
-    var d = getComputedStyle(e, null).display;
-    if (d == "" || d == "grid") {
+    var eDisplay = getComputedStyle(e, null).display;
+    var fDisplay = getComputedStyle(f, null).display;
+    if (eDisplay == "" || eDisplay == "grid" || fDisplay == "" || fDisplay == "grid") {
         e.style.display = "none";
+        f.style.display = "none";
         l.style.display = "flex";
     }
     else {
-        e.style.display = "grid";
+        if (point5ButtonsView) {
+            e.style.display = "none";
+            f.style.display = "grid";
+        }
+        else {
+            e.style.display = "grid";
+            f.style.display = "none";
+        }
         l.style.display = "none";
     }
 }
@@ -64,12 +136,12 @@ function addNewNotaToHtml(n) {
     var s = getNotaFlexItemHtmlAsStringWithNota(n);
 
     var smallContainer = document.getElementsByClassName('note-container-text')[0];
-    smallContainer.insertAdjacentHTML('beforeend', s);
-    var smallContainerChild = smallContainer.lastElementChild;
+    smallContainer.insertAdjacentHTML('afterbegin', s);
+    var smallContainerChild = smallContainer.firstElementChild;
     
     var bigContainer = document.getElementsByClassName('edit-note-layout')[0];
-    bigContainer.insertAdjacentHTML('beforeend', s);
-    var bigContainerChild = bigContainer.lastElementChild;
+    bigContainer.insertAdjacentHTML('afterbegin', s);
+    var bigContainerChild = bigContainer.firstElementChild;
     bigContainerChild.onclick = function() {
         deleteNode(bigContainerChild);
         deleteNode(smallContainerChild);
@@ -78,6 +150,7 @@ function addNewNotaToHtml(n) {
 }
 
 function tezaButtonClick(b) {
+    resetSwapButton();
     tezaButtonPressed = !tezaButtonPressed;
     if (resetButtonPressed) {
         addNewTeza("-");
@@ -101,6 +174,7 @@ function tezaButtonClick(b) {
 }
 
 function resetButtonClick(b) {
+    resetSwapButton();
     resetButtonPressed = !resetButtonPressed;
     if (tezaButtonPressed) {
         addNewTeza("-");
@@ -127,6 +201,7 @@ function resetButtonClick(b) {
 }
 
 function resetAll() {
+    resetSwapButton();
     addNewTeza("-");
     var toClick = [];
     Array.prototype.forEach.call(

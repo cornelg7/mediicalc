@@ -6,11 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MediiCalc</title>
     <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/all.min.css">
     <script src="js/main.js"></script>
 </head>
 <body>
     <div class="grid-container">
-        <div class="note-container" onclick="swapEditNoteLayout(this)">
+        <div class="note-container" onclick="swapEditNoteLayout()">
             <header class="grid-item note-container-header">
                 Note
             </header>
@@ -22,11 +23,14 @@
                 
             </div>
         </div>
-        <div class="medie-container" onclick="swapEditNoteLayout(this)">
-            <header class="grid-item medie-container-header">
+        <div class="medie-container">
+            <div class="grid-item change-button-values" onclick="swapButtonLayout(this)">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+            <header class="grid-item medie-container-header" onclick="swapEditNoteLayout()">
                 Media
             </header>
-            <div class="medie-container-text grid-item">
+            <div class="medie-container-text grid-item"  onclick="swapEditNoteLayout()">
             </div>
         </div>
         <div class="buttons-container">
@@ -45,6 +49,21 @@
         </div>
         <div class="edit-note-layout">
             
+        </div>
+        <div class="buttons-container-with-decimals">
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="5">5</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="5.5">5<span class="decimals-point-5">.5</span></button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="6">6</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="6.5">6<span class="decimals-point-5">.5</span></button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="7">7</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="7.5">7<span class="decimals-point-5">.5</span></button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="8">8</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="8.5">8<span class="decimals-point-5">.5</span></button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="9">9</button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="9.5">9<span class="decimals-point-5">.5</span></button></div>
+            <div class="grid-item"><button class="number-button" onclick="numberButtonClick(this)" data-value="10">10</button></div>
+            <div class="grid-item"><button class="number-button reset-button" onclick="resetButtonClick(this)">R</button></div>
+
         </div>
     </div>
 </body>
